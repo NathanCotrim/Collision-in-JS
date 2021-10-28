@@ -1,4 +1,9 @@
 {
+  "name": "js-collisions",
+  "author": "Nathan Cotrim",
+  "version": "1.0.0",
+  "description": "Javascript application that detects collisions between circles ",
+  "license": "MIT",
   "scripts": {
     "start": "webpack serve",
     "build": "webpack --env prod"

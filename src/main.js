@@ -1,4 +1,5 @@
 let canvas, ctx;
+let x = 0;
 
 const resizeCanvas = () => {
     canvas.height = window.innerHeight;
@@ -6,17 +7,23 @@ const resizeCanvas = () => {
 };
 
 const draw = () => {
-    ctx.fillStyle = '#00ff00'
-    ctx.fillRect(0, 0, 50, 35)
+    ctx.fillRect(0, 0, canvas.width, canvas.height)
 
-    ctx.fillStyle = '#0000ff'
-    ctx.fillRect(120, 200, 50, 35)
+    ctx.strokeStyle = '#ffffff'
 
-    ctx.strokeStyle = '#ff0000'
-    ctx.strokeRect(300, 90, 50, 35)
+    ctx.beginPath()
+    ctx.arc(x, 100, 50, 0, Math.PI * 2)
+    ctx.stroke()
+}
 
-    ctx.arc(450, 220, 30, 0, Math.PI * 2)
-    ctx.fill()
+const update = () => {
+    x++
+}
+
+const step = () => {
+    update()
+    draw()
+    window.requestAnimationFrame(step)
 }
 
 const init = () => {
@@ -28,7 +35,7 @@ const init = () => {
 
     resizeCanvas();
 
-    draw()
+    step()
 };
 
 init();

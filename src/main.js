@@ -1,5 +1,14 @@
 let canvas, ctx;
-let x = 0;
+
+const mouseCoordinates = Object.seal({
+    x: window.innerWidth / 2,
+    y: window.innerHeight / 2
+})
+
+const getMouseCoordinates = e => {
+    mouseCoordinates.x = e.clientX;
+    mouseCoordinates.y = e.clientY;
+};
 
 const resizeCanvas = () => {
     canvas.height = window.innerHeight;
@@ -12,19 +21,20 @@ const draw = () => {
     ctx.strokeStyle = '#ffffff'
 
     ctx.beginPath()
-    ctx.arc(x, 100, 50, 0, Math.PI * 2)
+    ctx.arc(
+        mouseCoordinates.x,
+        mouseCoordinates.y,
+        50,
+        0,
+        Math.PI * 2
+    )
     ctx.stroke()
-}
-
-const update = () => {
-    x++
-}
+};
 
 const step = () => {
-    update()
     draw()
     window.requestAnimationFrame(step)
-}
+};
 
 const init = () => {
     canvas = document.createElement('canvas');
@@ -32,6 +42,7 @@ const init = () => {
     ctx = canvas.getContext('2d');
 
     window.addEventListener('resize', resizeCanvas);
+    window.addEventListener('mousemove', getMouseCoordinates);
 
     resizeCanvas();
 

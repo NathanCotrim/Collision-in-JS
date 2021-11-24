@@ -1,4 +1,6 @@
-let canvas, ctx;
+import { Circle } from './circle';
+
+let canvas, canvasContext, circle;
 
 const mouseCoordinates = Object.seal({
     x: window.innerWidth / 2,
@@ -15,23 +17,18 @@ const resizeCanvas = () => {
     canvas.width = window.innerWidth;
 };
 
+const update = () => {
+    circle.setPosition(mouseCoordinates)
+}
+
 const draw = () => {
-    ctx.fillRect(0, 0, canvas.width, canvas.height)
+    canvasContext.fillRect(0, 0, canvas.width, canvas.height)
 
-    ctx.strokeStyle = '#ffffff'
-
-    ctx.beginPath()
-    ctx.arc(
-        mouseCoordinates.x,
-        mouseCoordinates.y,
-        50,
-        0,
-        Math.PI * 2
-    )
-    ctx.stroke()
+    circle.draw(canvasContext)
 };
 
 const step = () => {
+    update()
     draw()
     window.requestAnimationFrame(step)
 };
@@ -39,7 +36,8 @@ const step = () => {
 const init = () => {
     canvas = document.createElement('canvas');
     document.body.appendChild(canvas);
-    ctx = canvas.getContext('2d');
+    canvasContext = canvas.getContext('2d');
+    circle = new Circle({ x: 0, y: 0 }, 40)
 
     window.addEventListener('resize', resizeCanvas);
     window.addEventListener('mousemove', getMouseCoordinates);

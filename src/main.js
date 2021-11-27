@@ -1,11 +1,13 @@
 import { Circle } from './circle';
 
-let canvas, canvasContext, circle;
+let canvas, canvasContext, mainCircle;
+const NUM_OF_CIRCLES = 40;
+const circles = [];
 
 const mouseCoordinates = Object.seal({
     x: window.innerWidth / 2,
     y: window.innerHeight / 2
-})
+});
 
 const getMouseCoordinates = e => {
     mouseCoordinates.x = e.clientX;
@@ -18,13 +20,17 @@ const resizeCanvas = () => {
 };
 
 const update = () => {
-    circle.setPosition(mouseCoordinates)
-}
+    mainCircle.setPosition(mouseCoordinates)
+};
 
 const draw = () => {
     canvasContext.fillRect(0, 0, canvas.width, canvas.height)
 
-    circle.draw(canvasContext)
+    mainCircle.draw(canvasContext)
+
+    circles.forEach(circle => {
+        circle.draw(canvasContext)
+    })
 };
 
 const step = () => {
@@ -34,16 +40,24 @@ const step = () => {
 };
 
 const init = () => {
-    canvas = document.createElement('canvas');
-    document.body.appendChild(canvas);
-    canvasContext = canvas.getContext('2d');
-    circle = new Circle({ x: 0, y: 0 }, 40)
-
     window.addEventListener('resize', resizeCanvas);
     window.addEventListener('mousemove', getMouseCoordinates);
 
+    canvas = document.createElement('canvas');
+    document.body.appendChild(canvas);
+    
+    canvasContext = canvas.getContext('2d');
     resizeCanvas();
 
+    mainCircle = new Circle({ x: 0, y: 0 }, 40)
+
+    for (let i = 0; i < NUM_OF_CIRCLES; i++) {
+        const circle = new Circle()
+        circle.setDimensions(canvas.width, canvas.height)
+
+        circles.push(circle)
+    }
+    
     step()
 };
 

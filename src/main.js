@@ -21,6 +21,16 @@ const resizeCanvas = () => {
 
 const update = () => {
     mainCircle.setPosition(mouseCoordinates)
+    mainCircle.updateState()
+
+    circles.forEach(circle => {
+        circle.updateState()
+
+        if (circle.isOverlaped(mainCircle)) {
+            circle.setOverlaping(true)
+            mainCircle.setOverlaping(true)
+        }
+    })
 };
 
 const draw = () => {

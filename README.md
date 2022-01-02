@@ -1,5 +1,4 @@
 <br>
-<br>
 
 ### 🐍 Description <br>
 

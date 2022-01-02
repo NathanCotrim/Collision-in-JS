@@ -1,13 +1,3 @@
-<div align="center">
-    <img src="https://blog.mailrelay.com/wp-content/uploads/2017/11/mercado-objetivo.png"> <br>
-    <h2>
-        Circle Collisions in JS
-    </h2>
-</div>
-
-<br>
-<br>
-
 ### 🐍 Description <br>
 
 It's a simple javascript app, that identify collisions beetween circles.
